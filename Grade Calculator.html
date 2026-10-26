@@ -1,0 +1,145 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 400px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        h1 {
+            color: #1e3a8a;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Grade Calculator</h1>
+        <p>Enter marks for five subjects (0–100).</p>
+
+        <form id="gradeForm">
+            <input type="number" id="sub1" placeholder="Subject 1 Marks"
+                   min="0" max="100" step="any" required>
+
+            <input type="number" id="sub2" placeholder="Subject 2 Marks"
+                   min="0" max="100" step="any" required>
+
+            <input type="number" id="sub3" placeholder="Subject 3 Marks"
+                   min="0" max="100" step="any" required>
+
+            <input type="number" id="sub4" placeholder="Subject 4 Marks"
+                   min="0" max="100" step="any" required>
+
+            <input type="number" id="sub5" placeholder="Subject 5 Marks"
+                   min="0" max="100" step="any" required>
+
+            <button type="submit">Calculate Grade</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("gradeForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let marks = [
+                document.getElementById("sub1").value,
+                document.getElementById("sub2").value,
+                document.getElementById("sub3").value,
+                document.getElementById("sub4").value,
+                document.getElementById("sub5").value
+            ];
+
+            let result = document.getElementById("result");
+
+            // Validate input values
+            for (let i = 0; i < marks.length; i++) {
+                if (marks[i] === "" || Number(marks[i]) < 0 || Number(marks[i]) > 100) {
+                    result.innerHTML = "Please enter valid marks between 0 and 100.";
+                    return;
+                }
+            }
+
+            // Convert marks into numbers
+            marks = marks.map(Number);
+
+            // Calculate total and average
+            let total = marks.reduce((sum, mark) => sum + mark, 0);
+            let average = total / 5;
+
+            // Calculate grade
+            let grade;
+
+            if (average >= 90) {
+                grade = "A+";
+            } else if (average >= 80) {
+                grade = "A";
+            } else if (average >= 70) {
+                grade = "B";
+            } else if (average >= 60) {
+                grade = "C";
+            } else if (average >= 50) {
+                grade = "D";
+            } else {
+                grade = "F";
+            }
+
+            // Display results
+            result.innerHTML =
+                "<h3>Result</h3>" +
+                "Total Marks: " + total + " / 500<br>" +
+                "Average: " + average.toFixed(2) + "%<br>" +
+                "Grade: " + grade;
+        });
+    </script>
+
+</body>
+</html>
+```
